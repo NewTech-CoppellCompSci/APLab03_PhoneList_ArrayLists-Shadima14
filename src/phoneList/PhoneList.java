@@ -1,6 +1,9 @@
 package phoneList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import notes02_ArrayLists.Student;
 
 /*
  * Phone List
@@ -25,6 +28,7 @@ import java.util.Scanner;
 
 
 public class PhoneList {
+	private ArrayList <Contact> contactsList;
 
 	/*
 	 * Instance Variables
@@ -35,6 +39,7 @@ public class PhoneList {
 	//Constructor
 	public PhoneList() {
 		//initialize instance variables
+		contactsList = new ArrayList<Contact>();
 	}
 	
 	
@@ -49,7 +54,38 @@ public class PhoneList {
 	 *   - tell the user what the new contact is and that 
 	 *        it's been added
 	 */
-	public static void addContact() {
+	public void addContact() {
+		Scanner inKey = new Scanner(System.in);
+		
+		System.out.print("New Contact's Name: ");
+		//scan from the keyboard
+		String name = inKey.nextLine();
+		
+		System.out.print("New Contact's Number: ");
+		//scan from the keyboard
+		String num = inKey.nextLine();
+		
+		System.out.print("Contact has been added.");
+		
+		Contact c1 = new Contact(name, num);
+		
+		boolean added = false;
+		
+		if (contactsList.size() == 0) {
+			contactsList.add(c1);
+		}
+		else {
+			for (int i = 0; i < contactsList.size(); i++) {
+				if(c1.getName().compareTo(contactsList.get(i).getName()) <= 0) {
+					contactsList.add(i, c1);
+					added = true;
+					break;
+				}
+			}
+		}
+		if (added = false) {
+			contactsList.add(c1);
+		}
 		
 		
 	}
@@ -70,7 +106,22 @@ public class PhoneList {
 	 *        Remove the item from the list
 	 *        
 	 */
-	public static void removeContact() {
+	public void removeContact() {
+		Scanner inKey = new Scanner(System.in);
+		
+		System.out.print("Name of contact that you want to remove: ");
+		//scan from the keyboard
+		String name = inKey.nextLine();
+		
+		System.out.print("Contact has been removed.");
+		
+	
+			for (int i = 0; i < contactsList.size(); i++) {
+				if(name.compareTo(contactsList.get(i).getName()) == 0) {
+					contactsList.remove(i);
+				}
+			}
+		
 		
 		
 	}
@@ -87,8 +138,11 @@ public class PhoneList {
 	 *          -----------------
 	 *          #################
 	 */
-	public static void printList() {
-		
+	public void printList() {
+		for (int i = 0; i < contactsList.size(); i++) {
+			System.out.println("-----------------\nName: " + contactsList.get(i).getName() + "\nNumber: " + contactsList.get(i).getNum() + "\n-----------------");
+			
+		}
 	}
 
 	
@@ -101,7 +155,7 @@ public class PhoneList {
 	 * of how to manage them.
 	 * 
 	 */
-	public static void menu() {
+	public void menu() {
 		
 		int input = 0;
 		
@@ -155,7 +209,7 @@ public class PhoneList {
 		
 	}
 	
-	public static String getString(String str) {
+	public String getString(String str) {
 		
 		Scanner inKey = new Scanner(System.in);
 		System.out.print(str);  //notice it's NOT a print line.  This way input is next to question.
